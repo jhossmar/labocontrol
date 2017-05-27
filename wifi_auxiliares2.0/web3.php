@@ -5,21 +5,23 @@
 	$usuario= "root";
 	$pw="";
 	$database="cuentas_wifi";
-	$conexion= mysql_connect($server, $usuario, $pw);
-	if (!$conexion) {
-		die ('error al conectar a la base de datos'.myql_error());
-	}
+	$conexion= mysql_connect($server, $usuario, $pw) OR DIE('error al conectar con la base de datos');
+	
 		mysql_select_db($database, $conexion) OR DIE ('PROBLEMAS EN LA SELECCION DE BASE DE DATOS');;
-		$consulta1= mysql_query("SELECT * FROM usuarios_wifi WHERE nombre= '$nombre'");
+		$consulta1= mysql_query("SELECT * FROM usuarios_wifi2 WHERE nombre= '$nombre'");
 		$fila= mysql_fetch_array($consulta1);
 		if(empty($fila)){
-			header('location: wifi2.html');
+			echo 'datos incorrectos';
+			echo '<form action= "pagina_principal.html">
+					<input type="submit" value="volver a intentar">
+					</form>
+					<form action= "ingresar_admin.html">
+					<input type="submit" value="crear una cuenta">
+					</form>'
+					;
 		}else{
 		    
-		foreach ($fila as $nombre => $value ) {
-			# code...
-	    }	
-
+		
 			do {
 				if($fila['nombre']== $nombre && $fila ['password']==$password ){
 				echo "datos ingresados correctamente";
